@@ -1,9 +1,11 @@
+import { TouchableOpacity } from 'react-native';
+
 import styled from 'styled-components/native';
 
 import fonts from '../../styles/fonts';
 import colors from '../../styles/colors';
 
-export const Container = styled.TouchableOpacity`
+export const Container = styled(TouchableOpacity)`
   background: ${colors.green};
   height: 56px;
   border-radius: 16px;

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Platform } from 'react-native';
 
+import { useNavigation } from '@react-navigation/core';
+
 import Button from '../../components/Button';
 
 import { Wrapper, KeyboardAvoiding, Container, Form, Header, Title, Emoji, Input, Footer } from './styles';
@@ -10,6 +12,12 @@ const UserIdentification = () => {
   const [isFilled, setIsFilled] = useState(false);
 
   const [name, setName] = useState<string>();
+
+  const navigation = useNavigation();
+
+  function handleSubmit() {
+    navigation.navigate('Confirmation');
+  }
 
   function handleInputBlur() {
     setIsFocused(false);
@@ -48,7 +56,7 @@ const UserIdentification = () => {
             />
 
             <Footer>
-              <Button>Confirmar</Button>
+              <Button title="Confirmar" onPress={handleSubmit} />
             </Footer>
           </Form>
         </Container>

@@ -1,16 +1,18 @@
 import React from 'react';
 
+import { TouchableOpacityProps } from 'react-native';
+
 import { Container, ButtonText } from './styles';
 
-interface ButtonProps {
-  children: string;
+interface ButtonProps extends TouchableOpacityProps {
+  title: string;
 }
 
-const Button = ({ children }: ButtonProps) => {
+const Button = ({ title, ...rest }: ButtonProps) => {
   return (
-    <Container>
+    <Container {...rest}>
       <ButtonText>
-        {children}
+        {title}
       </ButtonText>
     </Container>
   );

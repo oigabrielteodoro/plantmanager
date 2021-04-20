@@ -1,10 +1,18 @@
 import React from 'react';
 
+import { useNavigation } from '@react-navigation/core';
+
 import wateringImg from '../../assets/watering.png';
 
 import { Wrapper, Container, Title, SubTitle, Button, ButtonText, ButtonIcon, Image } from './styles';
 
 const Welcome = () => {
+  const navigation = useNavigation();
+
+  function handleStart() {
+    navigation.navigate('UserIdentification');
+  }
+
   return (
     <Wrapper>
       <Container>
@@ -16,7 +24,7 @@ const Welcome = () => {
           Nós cuidamos de lembrar você sempre que precisar. 
         </SubTitle>
 
-        <Button activeOpacity={0.7}>
+        <Button onPress={handleStart} activeOpacity={0.7}>
           <ButtonText>
             <ButtonIcon 
               name="chevron-right" 
