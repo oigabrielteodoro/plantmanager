@@ -1,20 +1,31 @@
 import styled from 'styled-components/native';
 
+import { Feather } from '@expo/vector-icons';
+
+import fonts from '../../styles/fonts';
 import colors from '../../styles/colors';
 
-export const Container = styled.SafeAreaView`
+export const Wrapper = styled.SafeAreaView`
+  flex: 1;
+`;
+
+export const Container = styled.View`
   flex: 1;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
+  padding: 0 20px;
 `;
 
 export const Title = styled.Text`
   font-size: 32px;
   font-weight: bold;
   text-align: center;
+
   color: ${colors.heading};
+  font-family: ${fonts.heading};
 
   margin-top: 38px;
+  line-height: 36px;
 `;
 
 export const SubTitle = styled.Text`
@@ -22,6 +33,7 @@ export const SubTitle = styled.Text`
   font-size: 18px;
   padding: 0 20px;
   color: ${colors.heading};
+  font-family: ${fonts.text};
 `;
 
 export const Button = styled.TouchableOpacity`
@@ -40,7 +52,9 @@ export const ButtonText = styled.Text`
   font-size: 24px;
 `;
 
-export const Image = styled.Image`
-  width: 292px;
-  height: 284px;
+export const ButtonIcon = styled(Feather)`
+  font-size: 32px;
+  color: ${colors.white};
 `;
+
+export const Image = styled.Image``;
