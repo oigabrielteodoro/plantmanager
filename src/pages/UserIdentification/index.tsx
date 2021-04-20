@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Platform } from 'react-native';
+import { Platform, TouchableWithoutFeedback, Keyboard } from 'react-native';
 
 import { useNavigation } from '@react-navigation/core';
 
@@ -34,32 +34,38 @@ const UserIdentification = () => {
     setName(value);
   }
 
+  function handleDismissKeyboard() {
+    Keyboard.dismiss();
+  }
+
   return (
     <Wrapper>
       <KeyboardAvoiding behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-        <Container>
-          <Form>
-            <Header>
-              <Emoji>{isFilled ? '😄' : '😀'}</Emoji>
+        <TouchableWithoutFeedback onPress={handleDismissKeyboard}>
+          <Container>
+            <Form>
+              <Header>
+                <Emoji>{isFilled ? '😄' : '😀'}</Emoji>
 
-              <Title>Como podemos {`\n`}chamar você?</Title>
-            </Header>
+                <Title>Como podemos {`\n`}chamar você?</Title>
+              </Header>
 
-            <Input 
-              placeholder="Digite um nome" 
-              onBlur={handleInputBlur} 
-              onFocus={handleInputFocus} 
-              onChangeText={handleInputChange}
-              isFocused={isFocused || isFilled} 
-              autoCorrect={false}
-              autoCapitalize="words"
-            />
+              <Input 
+                placeholder="Digite um nome" 
+                onBlur={handleInputBlur} 
+                onFocus={handleInputFocus} 
+                onChangeText={handleInputChange}
+                isFocused={isFocused || isFilled} 
+                autoCorrect={false}
+                autoCapitalize="words"
+              />
 
-            <Footer>
-              <Button title="Confirmar" onPress={handleSubmit} />
-            </Footer>
-          </Form>
-        </Container>
+              <Footer>
+                <Button title="Confirmar" onPress={handleSubmit} />
+              </Footer>
+            </Form>
+          </Container>
+        </TouchableWithoutFeedback>
       </KeyboardAvoiding>
     </Wrapper>
   );
