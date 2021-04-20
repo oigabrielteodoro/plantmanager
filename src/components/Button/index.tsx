@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Container } from './styles';
+import { Container, ButtonText } from './styles';
 
 interface ButtonProps {
   children: string;
@@ -8,7 +8,11 @@ interface ButtonProps {
 
 const Button = ({ children }: ButtonProps) => {
   return (
-    <Container>{children}</Container>
+    <Container>
+      <ButtonText>
+        {children}
+      </ButtonText>
+    </Container>
   );
 }
 
