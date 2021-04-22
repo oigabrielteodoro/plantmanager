@@ -6,7 +6,7 @@ import wateringImg from '../../assets/watering.png';
 
 import { Wrapper, Container, Title, SubTitle, Button, ButtonText, ButtonIcon, Image } from './styles';
 
-const Welcome = () => {
+export function Welcome() {
   const navigation = useNavigation();
 
   function handleStart() {
@@ -34,6 +34,4 @@ const Welcome = () => {
       </Container>
     </Wrapper>
   );
-}
-
-export default Welcome;
+};

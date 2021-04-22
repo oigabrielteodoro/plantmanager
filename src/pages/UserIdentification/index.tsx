@@ -3,11 +3,11 @@ import { Platform, TouchableWithoutFeedback, Keyboard } from 'react-native';
 
 import { useNavigation } from '@react-navigation/core';
 
-import Button from '../../components/Button';
+import { Button } from '../../components/Button';
 
 import { Wrapper, KeyboardAvoiding, Container, Form, Header, Title, Emoji, Input, Footer } from './styles';
 
-const UserIdentification = () => {
+export function UserIdentification() {
   const [isFocused, setIsFocused] = useState(false);
   const [isFilled, setIsFilled] = useState(false);
 
@@ -69,6 +69,4 @@ const UserIdentification = () => {
       </KeyboardAvoiding>
     </Wrapper>
   );
-}
-
-export default UserIdentification;
+};

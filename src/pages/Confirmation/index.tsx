@@ -2,15 +2,15 @@ import React from 'react';
 
 import { useNavigation } from '@react-navigation/core';
 
-import Button from '../../components/Button';
+import { Button } from '../../components/Button';
 
 import { Wrapper, Container, Emoji, Title, SubTitle, Footer } from './styles';
 
-const Confirmation = () => {
+export function Confirmation() {
   const navigation = useNavigation();
 
   function handleNavigate() {
-    navigation.navigate('Home');
+    navigation.navigate('PlantSelect');
   }
 
   return (
@@ -29,6 +29,4 @@ const Confirmation = () => {
 
     </Wrapper>
   );
-}
-
-export default Confirmation;
+};

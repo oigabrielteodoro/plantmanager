@@ -8,7 +8,7 @@ interface ButtonProps extends TouchableOpacityProps {
   title: string;
 }
 
-const Button = ({ title, ...rest }: ButtonProps) => {
+export function Button({ title, ...rest }: ButtonProps) {
   return (
     <Container {...rest}>
       <ButtonText>
@@ -16,6 +16,4 @@ const Button = ({ title, ...rest }: ButtonProps) => {
       </ButtonText>
     </Container>
   );
-}
-
-export default Button;
+};
