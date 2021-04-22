@@ -5,7 +5,7 @@ import styled from 'styled-components/native';
 import fonts from '../../styles/fonts';
 import colors from '../../styles/colors';
 
-import { Environment } from '.';
+import { Environment, Plant } from '.';
 
 export const Container = styled.View`
   flex: 1;
@@ -35,10 +35,19 @@ export const EnvironmentList = styled(FlatList as new () => FlatList<Environment
   horizontal: true,
   showsHorizontalScrollIndicator: false,
   contentContainerStyle: {
-    height: 40,
-    justifyContent: 'center',
-    paddingBottom: 5,
     marginLeft: 32,
     marginVertical: 32
   }
+})`
+  max-height: 100px;
+`
+
+export const PlantsContainer = styled.View`
+  flex: 1;
+  padding: 0 32px;
+  justify-content: center;
+`;
+
+export const PlantsList = styled(FlatList as new () => FlatList<Plant>).attrs({
+  showsVerticalScrollIndicator: false,
 })``
