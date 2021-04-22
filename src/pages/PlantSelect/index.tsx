@@ -8,6 +8,8 @@ import { PlantCardPrimary } from '../../components/PlantCardPrimary';
 import { EnviromentButton } from '../../components/EnviromentButton';
 
 import { Container, HeaderContainer, EnvironmentTitle, EnvironmentSubTitle, EnvironmentList, PlantsContainer, PlantsList } from './styles';
+import { ActivityIndicator } from 'react-native';
+import colors from '../../styles/colors';
 
 export interface Environment {
   key: string;
@@ -30,6 +32,11 @@ export function PlantSelect() {
   const [filteredPlants, setFilteredPlants] = useState<Plant[]>([]);
   const [environmentSelected, setEnvironmentSelected] = useState<string>('all');
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [loadingMore, setLoadingMore] = useState(true);
+
+  const [loadedAll, setLoadedAll] = useState(false);
+
   function handleEnvironmentSelected(environment: string) {
     setEnvironmentSelected(environment);
 
@@ -40,6 +47,41 @@ export function PlantSelect() {
     const filtered = plants.filter(plan => plan.environments.includes(environment));
 
     setFilteredPlants(filtered);
+  }
+
+  function loadPlants() {
+    api.get<Plant[]>('plants', {
+      params: {
+        _sort: 'name',
+        _order: 'asc',
+        _page: currentPage,
+        _limit: 8,
+      }
+    }).then(({ data }) => {
+      if (!data) {
+        return setLoading(true);
+      }
+
+      if (currentPage > 1) {
+        setPlants(oldValue => [...oldValue, ...data]);
+        setFilteredPlants(oldValue => [...oldValue, ...data]);
+      } else {
+        setPlants(data);
+        setFilteredPlants(data);
+      }
+    }).finally(() => {
+      setLoading(false);
+      setLoadingMore(false);
+    });
+  }
+
+  function handleLoadMore(distance: number) {
+    if (distance < 1) return;
+
+    setLoadingMore(true);
+    setCurrentPage(oldValue => oldValue + 1);
+
+    loadPlants();
   }
  
   useEffect(() => {
@@ -57,18 +99,7 @@ export function PlantSelect() {
   }, []);
 
   useEffect(() => {
-    api.get<Plant[]>('plants', {
-      params: {
-        _sort: 'name',
-        _order: 'asc'
-      }
-    }).then(({ data }) => {
-      setPlants(data);
-
-      setFilteredPlants(data);
-    }).finally(() => {
-      setLoading(false);
-    });
+    loadPlants();
   }, []);
 
   if (loading) {
@@ -88,7 +119,11 @@ export function PlantSelect() {
         data={environments}
         keyExtractor={item => item.key}
         renderItem={({ item }) => (
-          <EnviromentButton title={item.title} active={item.key === environmentSelected} onPress={() => handleEnvironmentSelected(item.key)} />
+          <EnviromentButton 
+            title={item.title} 
+            active={item.key === environmentSelected} 
+            onPress={() => handleEnvironmentSelected(item.key)} 
+          />
         )}
       />
 
@@ -100,6 +135,11 @@ export function PlantSelect() {
           renderItem={({ item }) => (
             <PlantCardPrimary data={item} />
           )} 
+          onEndReachedThreshold={0.1}
+          onEndReached={({ distanceFromEnd }) => handleLoadMore(distanceFromEnd)}
+          ListFooterComponent={
+            loadingMore ? <ActivityIndicator color={colors.green} /> : <></>
+          }
         />
       </PlantsContainer>
     </Container>
