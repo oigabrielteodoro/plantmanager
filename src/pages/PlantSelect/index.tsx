@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { EnviromentButton } from '../../components/EnviromentButton';
 
+import api from '../../services/api';
+
+import { Load } from '../../components/Load';
 import { Header } from '../../components/Header';
 import { PlantCardPrimary } from '../../components/PlantCardPrimary';
-import api from '../../services/api';
+import { EnviromentButton } from '../../components/EnviromentButton';
 
 import { Container, HeaderContainer, EnvironmentTitle, EnvironmentSubTitle, EnvironmentList, PlantsContainer, PlantsList } from './styles';
 
@@ -20,6 +22,8 @@ export interface Plant {
 } 
 
 export function PlantSelect() {
+  const [loading, setLoading] = useState(true);
+
   const [plants, setPlants] = useState<Plant[]>([]);
   const [environments, setEnviroments] = useState<Environment[]>([]);
 
@@ -62,8 +66,14 @@ export function PlantSelect() {
       setPlants(data);
 
       setFilteredPlants(data);
+    }).finally(() => {
+      setLoading(false);
     });
   }, []);
+
+  if (loading) {
+    return <Load />
+  }
 
   return (
     <Container>
