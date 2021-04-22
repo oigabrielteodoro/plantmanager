@@ -1,8 +1,11 @@
+import { FlatList } from 'react-native';
+
 import styled from 'styled-components/native';
 
 import fonts from '../../styles/fonts';
 import colors from '../../styles/colors';
-import { FlatList } from 'react-native';
+
+import { Environment } from '.';
 
 export const Container = styled.View`
   flex: 1;
@@ -28,7 +31,7 @@ export const EnvironmentSubTitle = styled.Text`
   color: ${colors.heading};
 `;
 
-export const EnvironmentList = styled(FlatList as new () => FlatList).attrs({
+export const EnvironmentList = styled(FlatList as new () => FlatList<Environment>).attrs({
   horizontal: true,
   showsHorizontalScrollIndicator: false,
   contentContainerStyle: {
