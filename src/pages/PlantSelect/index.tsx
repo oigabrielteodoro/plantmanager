@@ -3,7 +3,7 @@ import { EnviromentButton } from '../../components/EnviromentButton';
 
 import { Header } from '../../components/Header';
 
-import { Container, HeaderContainer, EnvironmentTitle, EnvironmentSubTitle } from './styles';
+import { Container, HeaderContainer, EnvironmentTitle, EnvironmentSubTitle, EnvironmentList } from './styles';
 
 export function PlantSelect() {
   return (
@@ -15,7 +15,12 @@ export function PlantSelect() {
         <EnvironmentSubTitle>você quer colocar sua planta?</EnvironmentSubTitle>
       </HeaderContainer>
 
-      <EnviromentButton title="Cozinha" active />
+      <EnvironmentList 
+        data={[1, 2, 3, 4, 5]}
+        renderItem={() => (
+          <EnviromentButton title="Cozinha" active />
+        )}
+      />
     </Container>
   );
 }

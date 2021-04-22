@@ -20,6 +20,7 @@ export const Container = styled(RectButton)<ContainerProps>`
   align-items: center;
 
   border-radius: 12px;
+  margin-right: 5px;
 
   ${({ active }) => active && css`
     background: ${colors.green_light};
