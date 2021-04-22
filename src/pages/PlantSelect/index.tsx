@@ -1,4 +1,5 @@
 import React from 'react';
+import { EnviromentButton } from '../../components/EnviromentButton';
 
 import { Header } from '../../components/Header';
 
@@ -13,6 +14,8 @@ export function PlantSelect() {
         <EnvironmentTitle>Em qual ambiente</EnvironmentTitle>
         <EnvironmentSubTitle>você quer colocar sua planta?</EnvironmentSubTitle>
       </HeaderContainer>
+
+      <EnviromentButton title="Cozinha" active />
     </Container>
   );
 }
