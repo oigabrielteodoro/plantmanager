@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from 'react';
 
+import { ActivityIndicator } from 'react-native';
+
 import api from '../../services/api';
+
+import { useNavigation } from '@react-navigation/core';
 
 import { Load } from '../../components/Load';
 import { Header } from '../../components/Header';
 import { PlantCardPrimary } from '../../components/PlantCardPrimary';
 import { EnviromentButton } from '../../components/EnviromentButton';
 
-import { Container, HeaderContainer, EnvironmentTitle, EnvironmentSubTitle, EnvironmentList, PlantsContainer, PlantsList } from './styles';
-import { ActivityIndicator } from 'react-native';
 import colors from '../../styles/colors';
+
+import { Container, HeaderContainer, EnvironmentTitle, EnvironmentSubTitle, EnvironmentList, PlantsContainer, PlantsList } from './styles';
 
 export interface Environment {
   key: string;
@@ -20,10 +24,14 @@ export interface Plant {
   id: number;
   name: string;
   photo: string;
+  about: string;
   environments: string[];
+  water_tips: string;
 } 
 
 export function PlantSelect() {
+  const navigation = useNavigation();
+
   const [loading, setLoading] = useState(true);
 
   const [plants, setPlants] = useState<Plant[]>([]);
@@ -35,8 +43,6 @@ export function PlantSelect() {
   const [currentPage, setCurrentPage] = useState(1);
   const [loadingMore, setLoadingMore] = useState(true);
 
-  const [loadedAll, setLoadedAll] = useState(false);
-
   function handleEnvironmentSelected(environment: string) {
     setEnvironmentSelected(environment);
 
@@ -47,6 +53,10 @@ export function PlantSelect() {
     const filtered = plants.filter(plan => plan.environments.includes(environment));
 
     setFilteredPlants(filtered);
+  }
+
+  function handlePlantSelect(plant: Plant) {
+    navigation.navigate('PlantSave', { plant });
   }
 
   function loadPlants() {
@@ -133,7 +143,10 @@ export function PlantSelect() {
           numColumns={2}
           keyExtractor={item => item.id.toString()}
           renderItem={({ item }) => (
-            <PlantCardPrimary data={item} />
+            <PlantCardPrimary 
+              data={item} 
+              onPress={() => handlePlantSelect(item)} 
+            />
           )} 
           onEndReachedThreshold={0.1}
           onEndReached={({ distanceFromEnd }) => handleLoadMore(distanceFromEnd)}

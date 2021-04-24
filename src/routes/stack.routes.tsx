@@ -3,6 +3,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import { Welcome } from '../pages/Welcome';
+import { PlantSave } from '../pages/PlantSave';
 import { PlantSelect } from '../pages/PlantSelect';
 import { Confirmation } from '../pages/Confirmation';
 import { UserIdentification } from '../pages/UserIdentification';
@@ -23,6 +24,7 @@ const StackRouter = () => {
       }}
     >
       <Stack.Screen name="Welcome" component={Welcome} />
+      <Stack.Screen name="PlantSave" component={PlantSave} />
       <Stack.Screen name="PlantSelect" component={PlantSelect} />
       <Stack.Screen name="Confirmation" component={Confirmation} />
       <Stack.Screen name="UserIdentification" component={UserIdentification} />
