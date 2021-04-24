@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from 'react';
 
-import { Text } from 'react-native';
-
 import { formatDistance } from 'date-fns';
 import pt from 'date-fns/locale/pt-BR';
 
 import { Container, Plants, PlantsList, PlantsTitle, Spotlight, SpotlightImage, SpotlightText } from './styles';
 
+import { Load } from '../../components/Load';
 import { Header } from '../../components/Header';
+import { PlantCardSecondary } from '../../components/PlantCardSecondary';
 
 import { loadPlant, PlantProps } from '../../libs/storage';
 
 import waterdrop from '../../assets/waterdrop.png';
-import { PlantCardSecondary } from '../../components/PlantCardSecondary';
 
 interface PlantCardProps extends PlantProps {
   hour: string;
@@ -37,6 +36,10 @@ export function MyPlants() {
 
     loadStorageData();
   }, []);
+
+  if (loading) {
+    return <Load />
+  }
 
   return (
     <Container>
