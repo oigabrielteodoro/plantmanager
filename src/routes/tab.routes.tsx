@@ -1,10 +1,15 @@
 import React from 'react';
 
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import colors from '../styles/colors';
-import { PlantSelect } from '../pages/PlantSelect';
+import { Platform } from 'react-native';
+
 import { MaterialIcons } from '@expo/vector-icons';
+
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
 import { MyPlants } from '../pages/MyPlants';
+import { PlantSelect } from '../pages/PlantSelect';
+
+import colors from '../styles/colors';
 
 const Tab = createBottomTabNavigator();
 
@@ -16,7 +21,7 @@ const AuthRoutes = () => {
         inactiveTintColor: colors.heading,
         labelPosition: 'beside-icon',
         style: {
-          paddingVertical: 20,
+          paddingVertical: Platform.OS === 'ios' ? 20 : 0,
           height: 88,
         },
       }}
