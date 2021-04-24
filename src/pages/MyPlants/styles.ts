@@ -11,7 +11,7 @@ export const Container = styled.View`
   flex: 1;
   align-items: center;
   justify-content: space-between;
-  padding: 50px 30px 0;
+  padding: 0 30px;
   background: ${colors.background};
 `;
 
