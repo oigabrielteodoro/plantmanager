@@ -2,12 +2,12 @@ import React from 'react';
 
 import { RectButtonProps } from 'react-native-gesture-handler';
 
-import { Plant } from '../../pages/PlantSelect';
+import { PlantProps } from '../../libs/storage';
 
 import { Container, PlantName, PlantPhoto } from './styles';
 
 interface PlanProps extends RectButtonProps {
-  data: Plant;
+  data: PlantProps;
 }
 
 export function PlantCardPrimary({ data: { name, photo }, ...rest }: PlanProps) {
