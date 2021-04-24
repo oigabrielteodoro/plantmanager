@@ -12,12 +12,12 @@ import { Button } from '../../components/Button';
 
 import waterdropImg from '../../assets/waterdrop.png';
 
-import { Plant } from '../PlantSelect';
+import { PlantProps, savePlant } from '../../libs/storage';
 
 import { Container, PlantInfo, PlantImage, PlantName, PlantAbout, Controller, TipContainer, TipImage, TipText, AlertLabel, DateTimerPickerButton, DateTimerPickerText } from './styles';
 
 interface Params {
-  plant: Plant;
+  plant: PlantProps;
 }
 
 export function PlantSave() {
@@ -45,6 +45,17 @@ export function PlantSave() {
 
   function handleOpenDatetimePickerForAndroid() {
     setShowDatePicker(oldState => !oldState);
+  }
+
+  async function handleSave() {
+    try {
+      await savePlant({
+        ...plant,
+        dateTimeNotification: dateTimeSelected,
+      });
+    } catch {
+      Alert.alert('Não foi possível salvar. 😢');
+    }
   }
 
   return (
@@ -81,7 +92,7 @@ export function PlantSave() {
 
         <Button 
           title="Cadastrar planta" 
-          onPress={() => {}}
+          onPress={handleSave}
         />
       </Controller>
     </Container>

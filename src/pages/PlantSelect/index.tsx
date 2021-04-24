@@ -11,6 +11,8 @@ import { Header } from '../../components/Header';
 import { PlantCardPrimary } from '../../components/PlantCardPrimary';
 import { EnviromentButton } from '../../components/EnviromentButton';
 
+import { PlantProps } from '../../libs/storage';
+
 import colors from '../../styles/colors';
 
 import { Container, HeaderContainer, EnvironmentTitle, EnvironmentSubTitle, EnvironmentList, PlantsContainer, PlantsList } from './styles';
@@ -20,24 +22,15 @@ export interface Environment {
   title: string;
 }
 
-export interface Plant {
-  id: number;
-  name: string;
-  photo: string;
-  about: string;
-  environments: string[];
-  water_tips: string;
-} 
-
 export function PlantSelect() {
   const navigation = useNavigation();
 
   const [loading, setLoading] = useState(true);
 
-  const [plants, setPlants] = useState<Plant[]>([]);
+  const [plants, setPlants] = useState<PlantProps[]>([]);
   const [environments, setEnviroments] = useState<Environment[]>([]);
 
-  const [filteredPlants, setFilteredPlants] = useState<Plant[]>([]);
+  const [filteredPlants, setFilteredPlants] = useState<PlantProps[]>([]);
   const [environmentSelected, setEnvironmentSelected] = useState<string>('all');
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -55,12 +48,12 @@ export function PlantSelect() {
     setFilteredPlants(filtered);
   }
 
-  function handlePlantSelect(plant: Plant) {
+  function handlePlantSelect(plant: PlantProps) {
     navigation.navigate('PlantSave', { plant });
   }
 
   function loadPlants() {
-    api.get<Plant[]>('plants', {
+    api.get<PlantProps[]>('plants', {
       params: {
         _sort: 'name',
         _order: 'asc',
