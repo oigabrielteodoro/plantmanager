@@ -9,17 +9,18 @@ import { Load } from '../../components/Load';
 import { Header } from '../../components/Header';
 import { PlantCardSecondary } from '../../components/PlantCardSecondary';
 
-import { loadPlant, PlantProps } from '../../libs/storage';
+import { loadPlant, PlantProps, removePlant } from '../../libs/storage';
 
 import waterdrop from '../../assets/waterdrop.png';
+import { Alert } from 'react-native';
 
 interface PlantCardProps extends PlantProps {
   hour: string;
 };
 
 export function MyPlants() {
-  const [myPlants, setMyPlants] = useState<PlantProps[]>([]);
   const [loading, setLoading] = useState(true);
+  const [myPlants, setMyPlants] = useState<PlantProps[]>([]);
   const [nextWatered, setNextWatered] = useState<string>();
 
   useEffect(() => {
@@ -36,6 +37,27 @@ export function MyPlants() {
 
     loadStorageData();
   }, []);
+
+  function handleRemove(plant: PlantProps) {
+    Alert.alert('Remover', `Deseja remover a ${plant.name}?`, [
+      {
+        text: 'Não 🙏🏻',
+        style: 'cancel'
+      },
+      {
+        text: 'Sim 😢',
+        onPress: async () => {
+          try {
+            await removePlant(plant.id.toString());
+
+            setMyPlants(oldValue => oldValue.filter(oldPlant => oldPlant.id !== plant.id));
+          } catch (error) {
+            Alert.alert('Não foi possível remover! 😢');
+          }
+        }
+      },
+    ])
+  }
 
   if (loading) {
     return <Load />
@@ -57,7 +79,7 @@ export function MyPlants() {
           data={myPlants}
           keyExtractor={item => item.id.toString()}
           renderItem={({ item }) => (
-            <PlantCardSecondary data={item as PlantCardProps} onRemove={() => {}} />
+            <PlantCardSecondary data={item as PlantCardProps} onRemove={() => handleRemove(item)} />
           )}
         />
       </Plants>
