@@ -57,7 +57,7 @@ export function MyPlants() {
           data={myPlants}
           keyExtractor={item => item.id.toString()}
           renderItem={({ item }) => (
-            <PlantCardSecondary data={item as PlantCardProps} />
+            <PlantCardSecondary data={item as PlantCardProps} onRemove={() => {}} />
           )}
         />
       </Plants>
